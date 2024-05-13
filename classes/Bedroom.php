@@ -5,13 +5,13 @@ class Bedroom {
     private int $_id;
     private Hotel $_hotel;
     private int $_nbBed;
-    private string $_wifi;
+    private bool $_wifi;
     private float $_price;
-    private string $_avaliable;
+    private bool $_avaliable;
 
 
 
-    public function __construct(int $id, Hotel $hotel, int $nbBed, string $wifi, float $price, string $avaliable) {
+    public function __construct(int $id, Hotel $hotel, int $nbBed, bool $wifi, float $price, bool $avaliable) {
         $this->_id = $id;
         $this->_hotel = $hotel;
         $this->_nbBed = $nbBed;
