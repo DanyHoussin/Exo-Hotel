@@ -33,6 +33,12 @@ class Reservation {
     }
 
 
+    public function setClient(Client $client) {
+        $this->_client = $client;
+    }
+    public function setBedroom(Bedroom $bedroom) {
+        $this->_bedroom = $bedroom;
+    }
     public function setDateStart(string $dateStart) {
         $this->_dateStart = new DateTime($dateStart);
     }
@@ -40,6 +46,9 @@ class Reservation {
         $this->_dateEnd = new DateTime($dateEnd);
     }
 
+    public function __toString() {
+        return $this->getDateStart()->format('d-m-Y')." au ".$this->getDateEnd()->format('d-m-Y');
+    }
 
 }
 

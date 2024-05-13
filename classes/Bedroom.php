@@ -50,18 +50,20 @@ class Bedroom {
     public function setNbBed(int $nbBed) {
         $this->_hotelName = $hotelName;
     }
-    public function setWifi(string $wifi) {
+    public function setWifi(bool $wifi) {
         $this->_wifi = $wifi;
     }
     public function setPrice(float $price) {
         $this->_price = $price;
     }
-    public function setAvaliable(string $avaliable) {
+    public function setAvaliable(bool $avaliable) {
         $this->_avaliable = $avaliable;
     }
 
-    
-
+    public function __toString() {
+        return $this->getID();
+    }
 }
+
 
     

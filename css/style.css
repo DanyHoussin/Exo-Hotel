@@ -1,0 +1,27 @@
+.green {
+    padding: 3px; 
+    background-color: rgb(67, 182, 87); 
+    color:white; 
+    border-radius: 2px;
+}
+
+.red {
+    padding: 3px; 
+    background-color: red; 
+    color:white; 
+    border-radius: 2px;
+}
+
+table {
+  width: 50%;
+  height: 300px;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(240, 240, 240);
+}

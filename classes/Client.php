@@ -34,24 +34,27 @@ class Client {
 
     public function displayReservation(){
         if(count($this->reservations) > 0){
-        echo '<h2>'."Réservations de ".$this->getFirstName() ." ". $this->getLastName()." <br>".'</h2>';
-        echo  '<span style="padding: 3px; background-color: rgb(67, 182, 87); color:white; border-radius: 2px;">'.count($this->reservations)." RESERVATIONS".'</span>'."<br>";
+            $result = '<h2>'."Réservations de $this<br>".'</h2>';
+            $result .=  '<span class=green>'.count($this->reservations)." RESERVATIONS".'</span>'."<br>";
         foreach($this->reservations as $reservation) {
-            echo $reservation->getBedroom()->getHotelName()." / Chambre : ".$reservation->getBedroom()->getID()." (".$reservation->getBedroom()->getNbBed()." lits - ".$reservation->getBedroom()->getPrice()." € - Wifi : ";
-            if($reservation->getBedroom()->getWifi() === TRUE){
-                echo "Oui ";
+            $result .= $reservation->getBedroom()->getHotelName()." / Chambre : ".$reservation->getBedroom()." (".$reservation->getBedroom()->getNbBed()." lits - ".$reservation->getBedroom()->getPrice()." € - Wifi : ";
+            if($reservation->getBedroom()->getWifi()){
+                $result .= "Oui ";
             } else {
-                echo "Non ";
+                $result .= "Non ";
             }
-            echo ") du ".$reservation->getDateStart()->format('d-m-Y')." au ".$reservation->getDateEnd()->format('d-m-Y')."<br>";
+            $result .= ") du $reservation<br>";
         }
         } else {
-            echo '<h2>'."Réservations de ".$this->getHotelName()." <br>".'</h2>';
-            echo "Aucune réservation !";
+            $result .= '<h2>'."Réservations de $this <br>".'</h2>';
+            $result .= "Aucune réservation !";
         }
+        return $result;
     }
 
-
+    public function __toString() {
+        return $this->getFirstName() ." ". $this->getLastName();
+    }
 }
 
     

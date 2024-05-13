@@ -1,34 +1,3 @@
-<style>
-.green {
-    padding: 3px; 
-    background-color: rgb(67, 182, 87); 
-    color:white; 
-    border-radius: 2px;
-}
-
-.red {
-    padding: 3px; 
-    background-color: red; 
-    color:white; 
-    border-radius: 2px;
-}
-
-table {
-  width: 50%;
-  height: 300px;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: rgb(240, 240, 240);
-}
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <?php
 
 
@@ -69,11 +38,11 @@ class Hotel {
 
 
     public function displayBedrooms(){
-        echo '<h2>'.$this->getHotelName()." <br>".'</h2>';
-        echo $this->getAddress()." <br>";
+        $result = "<h2>$this<br></h2>";
+        $result .= $this->getAddress()." <br>";
         $nbBedroomAvaliable = count($this->bedrooms);
         $nbBedroomReserved = 0;
-        echo "Nombre de chambres : $nbBedroomAvaliable <br>";
+        $result .= "Nombre de chambres : $nbBedroomAvaliable <br>";
             foreach($this->bedrooms as $bedroom) {
                 if($bedroom->getAvaliable() == "No") { 
                     $nbBedroomReserved = $nbBedroomReserved + 1;
@@ -82,25 +51,28 @@ class Hotel {
 
                 }
             }
-        echo "Nombre de chambres réservées : $nbBedroomReserved <br>";
-        echo "Nombre de chambres dispo : $nbBedroomAvaliable <br>";
+        $result .= "Nombre de chambres réservées : $nbBedroomReserved <br>";
+        $result .= "Nombre de chambres dispo : $nbBedroomAvaliable <br>";
+        return $result;
     }
 
     public function displayReservation(){
         if(count($this->reservations) > 0){
-        echo '<h2>'."Réservations de ".$this->getHotelName()." <br>".'</h2>';
-        echo  '<span class=green>'.count($this->reservations)." RESERVATIONS".'</span>'."<br>";
+            $result =  "<h2>Réservations de $this<br></h2>";
+            $result .=   '<span class=green>'.count($this->reservations)." RESERVATIONS".'</span>'."<br>";
         foreach($this->reservations as $reservation) {
-            echo $reservation->getClient()->getFirstName()." ".$reservation->getClient()->getLastName()." - Chambre ".$reservation->getBedroom()->getID() ." - du ".$reservation->getDateStart()->format('d/m/Y')." au ".$reservation->getDateEnd()->format('d/m/Y')."<br>";
+            $result .=  $reservation->getClient()." - Chambre ".$reservation->getBedroom()." - du $reservation<br>";
         }
         } else {
-            echo '<h2>'."Réservations de ".$this->getHotelName()." <br>".'</h2>';
-            echo "Aucune réservation !";
+            $result =  '<h2>'."Réservations de $this<br>".'</h2>';
+            $result .=  "Aucune réservation !";
         }
+        return $result;
     }
 
     public function displayArrayReservation(){
-        echo "<table width=50% height=200px>
+        $result = "<h2>Statuts des chambres de $this</h2>";
+        $result .= "<table width=50% height=200px>
                 <thead>
                     <tr>
                         <th>CHAMBRE</th>
@@ -111,25 +83,30 @@ class Hotel {
                 </thead>
             <tbody>";
         foreach($this->bedrooms as $bedroom) {
-            echo "<tr>
-                <td>Chambre ".$bedroom->getID()."</td>
+            $result .= "<tr>
+                <td>Chambre $bedroom</td>
                 <td>".$bedroom->getPrice()." €</td>";
-                if($bedroom->getWifi() === TRUE){
-                    echo "<td>".'<i class="fa-solid fa-wifi"></i>'."</td>";
+                if($bedroom->getWifi()){
+                    $result .= "<td>".'<i class="fa-solid fa-wifi"></i>'."</td>";
                 } else {
-                    echo "<td></td>";
+                    $result .= "<td></td>";
                 }
 
-                if($bedroom->getAvaliable() === TRUE){
-                    echo "<td>".'<span class=green>DISPONIBLE</span>'."</td>";
+                if($bedroom->getAvaliable()){
+                    $result .= "<td>".'<span class=green>DISPONIBLE</span>'."</td>";
                 } else {
-                    echo "<td>".'<span class=red>RESERVEE</span>'."</td>";
+                    $result .= "<td>".'<span class=red>RESERVEE</span>'."</td>";
                 }
                 "</tr>";
             }
-                    
-                    
+        $result .= "</tbody></table>";
+        return $result;
 }
+
+public function __toString() {
+    return $this->getHotelName();
+}
+
 
 }
 
